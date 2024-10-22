@@ -12,6 +12,7 @@ const App = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
+  const [recommend, setRecommend] = useState();
 
   const traerCategorias = async () => {
     const { data } = await supabase
@@ -21,12 +22,23 @@ const App = () => {
     setCategories(data);
   };
 
+  const traerRecomendaciones = async (name) => {
+    const resp = await fetch(`http://127.0.0.1:5000/recommend?movie=${name}`);
+    const data = await resp.json();
+    setRecommend(data);
+  };
+
   const onCategoryClick = (category) => setSelectedCategory(category);
   const onMovieClick = (movie) => setSelectedMovie(movie);
 
   useEffect(() => {
     traerCategorias();
   }, []);
+
+  useEffect(() => {
+    if (!selectedMovie) return;
+    traerRecomendaciones(selectedMovie.name);
+  }, [selectedMovie]);
 
   useEffect(() => {
     setSelectedMovie();
@@ -52,6 +64,12 @@ const App = () => {
           <Movie key={movie.id} movie={movie} movieClick={onMovieClick} />
         ))}
       </div>
+
+      <ul>
+        {recommend?.map((movie) => (
+          <li key={movie}>{movie}</li>
+        ))}
+      </ul>
     </div>
   );
 };
