@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Category from "./components/Category";
 import Movie from "./components/Movie";
 import { createClient } from "@supabase/supabase-js";
+import './styles.css';
+
 
 export const supabase = createClient(
   import.meta.env.VITE_API_URL,
@@ -13,12 +15,13 @@ const App = () => {
   const [selectedCategory, setSelectedCategory] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
   const [recommend, setRecommend] = useState();
+  const [theme, setTheme] = useState("light");
 
   const traerCategorias = async () => {
     const { data } = await supabase
       .from("categories")
       .select("*, movies (*)")
-      .limit(10, { foreignTable: "movies" });
+      .limit(20, { foreignTable: "movies" });
     setCategories(data);
   };
 
@@ -44,8 +47,29 @@ const App = () => {
     setSelectedMovie();
   }, [selectedCategory]);
 
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);  
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
   return (
-    <div className="container">
+    <div className={`container ${theme}`}>
+      <button
+        onClick={toggleTheme}
+        className="toggle-button"
+        style={{
+          position: "absolute",
+          top: 10,
+          right: 10,
+          padding: "10px 20px",
+          cursor: "pointer",
+        }}
+      >
+        Dark theme
+      </button>
       <p>Categoria seleccionada: {selectedCategory?.name}</p>
       <p>Película seleccionada: {selectedMovie?.name}</p>
 
@@ -75,3 +99,4 @@ const App = () => {
 };
 
 export default App;
+
