@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import Category from "./components/Category";
 import Movie from "./components/Movie";
-import { createClient } from "@supabase/supabase-js";
 import './styles.css';
-
-
-export const supabase = createClient(
-  import.meta.env.VITE_API_URL,
-  import.meta.env.VITE_API_KEY
-);
+import { supabase } from "./supabaseClient";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
