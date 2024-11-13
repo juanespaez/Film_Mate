@@ -70,3 +70,18 @@ body.dark {
 .card .btn-primary:hover {
   background-color: #d0135a !important;
 }
+
+/* Efecto hover para Category */
+.category:hover {
+  transform: scale(1.05);
+  background: #F71568;
+  color: #FFF;
+  box-shadow: 0 0 26px #F71568;
+  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Efecto hover para Movie (Opcional) */
+.movie:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 26px #F71568;
+}

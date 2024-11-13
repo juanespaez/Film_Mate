@@ -1,3 +1,5 @@
+// App.jsx
+
 import { useEffect, useState } from "react";
 import Category from "./components/Category";
 import Movie from "./components/Movie";
@@ -39,6 +41,7 @@ const App = () => {
 
   useEffect(() => {
     setSelectedMovie();
+    setRecommend(null); // Limpiar recomendaciones al cambiar de categoría
   }, [selectedCategory]);
 
   useEffect(() => {
@@ -93,4 +96,3 @@ const App = () => {
 };
 
 export default App;
-

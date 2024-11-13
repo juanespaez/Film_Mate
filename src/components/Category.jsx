@@ -1,7 +1,9 @@
+// Category.jsx
+
 const Category = ({ category, click }) => {
   return (
     <div
-      className="mt-3 col-12 col-md-6 col-lg-3"
+      className="category mt-3 col-12 col-md-6 col-lg-3" // Agregado 'category'
       style={{
         alignItems: "center",
         borderRadius: "10px",
@@ -12,6 +14,7 @@ const Category = ({ category, click }) => {
         padding: 10,
         width: "10rem",
         cursor: "pointer",
+        transition: "transform 0.3s ease-in-out", // Asegura transición suave
       }}
       onClick={() => click(category)}
     >
